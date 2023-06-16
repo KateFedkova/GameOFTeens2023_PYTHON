@@ -3,8 +3,8 @@ from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 weeks_keyboard = InlineKeyboardMarkup(
     inline_keyboard=[
         [
-            InlineKeyboardButton("4 тижні", callback_data="4_weeks"),
-            InlineKeyboardButton("12 тижнів", callback_data="12_weeks")
+            InlineKeyboardButton("4 тижні", callback_data="4weeks"),
+            InlineKeyboardButton("12 тижнів", callback_data="12weeks")
         ]
     ]
 )
