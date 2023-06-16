@@ -11,6 +11,7 @@ from tgbot.handlers.admin import register_admin
 from tgbot.handlers.echo import register_echo
 from tgbot.handlers.user import register_user
 from tgbot.middlewares.environment import EnvironmentMiddleware
+from tgbot.services.interact_database import db_interaction
 
 logger = logging.getLogger(__name__)
 
@@ -44,6 +45,8 @@ async def main():
 
     bot['config'] = config
 
+    db_interaction.create_user_table()
+
     register_all_middlewares(dp, config)
     register_all_filters(dp)
     register_all_handlers(dp)
@@ -55,6 +58,7 @@ async def main():
         await dp.storage.close()
         await dp.storage.wait_closed()
         await bot.session.close()
+        db_interaction.connection.close()
 
 
 if __name__ == '__main__':
