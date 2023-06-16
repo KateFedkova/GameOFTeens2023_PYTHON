@@ -1,27 +1,21 @@
 import json
 
 from aiogram import Dispatcher
-from aiogram.types import Message, CallbackQuery
-from aiogram.types import KeyboardButton, WebAppInfo, ReplyKeyboardMarkup
+from aiogram.types import Message
 
 from tgbot.services.interact_database import db_interaction
+from tgbot.keyboards.reply import signup_markup, signup_page
 
 
 async def user_start(message: Message):
     if db_interaction.check_user_in_db(message.from_user.id):
         await message.answer("All is okay.")
     else:
-        markup = ReplyKeyboardMarkup(resize_keyboard=True)
-        signup_btn = KeyboardButton(text="Sign up!")
-        markup.add(signup_btn)
-        await message.reply("Hello, user!", reply_markup=markup)
+        await message.reply("Hello, user!", reply_markup=signup_markup)
 
 
 async def signup_handler(message: Message):
-    web_site_btn = KeyboardButton(text="Click here to complete registration!", web_app=WebAppInfo(
-            url="https://pavloshutz.github.io/signup-page/"))
-    markup = ReplyKeyboardMarkup(keyboard=[[web_site_btn]], resize_keyboard=True, one_time_keyboard=True)
-    await message.answer("Please complete registration in order to communicate with me!", reply_markup=markup)
+    await message.answer("Please complete registration in order to communicate with me!", reply_markup=signup_page)
 
 
 async def signup_user(message: Message):
