@@ -1,10 +1,12 @@
 """Class for lifecell tariffs data."""
 
+from dataclasses import dataclass
 
+
+@dataclass
 class Tariff:
 
-    def __init__(self, weeks, internet, calls, price):
-        self.weeks = weeks
-        self.internet = internet
-        self.calls = calls
-        self.price = price
+    weeks: int
+    internet: int
+    calls: int
+    price: int
