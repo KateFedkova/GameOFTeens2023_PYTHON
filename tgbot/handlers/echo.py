@@ -1,3 +1,5 @@
+"""Choose tariff handlers."""
+
 from aiogram import types, Dispatcher
 from aiogram.dispatcher import FSMContext
 from tgbot.misc import UserStates

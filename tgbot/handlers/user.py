@@ -1,3 +1,5 @@
+"""Handlers for starting conversation with user."""
+
 import json
 
 from aiogram import Dispatcher
@@ -11,11 +13,11 @@ from tgbot.misc.constants import BOT_INFO
 
 async def user_start(message: Message):
     """Start conversation with user and check if user is authorized."""
-    username = message.from_user.username
     if db_interaction.check_user_in_db(message.from_user.id):
+        username = db_interaction.get_username(message.from_user.id)
         await message.answer(f"З поверненням, {username}! Аби обрати тариф, введи /choose.")
     else:
-        await message.reply(BOT_INFO.format(username), reply_markup=signup_markup)
+        await message.reply(BOT_INFO, reply_markup=signup_markup)
 
 
 async def signup_user(message: Message):
