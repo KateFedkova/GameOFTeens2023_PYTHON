@@ -5,8 +5,8 @@ from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 weeks_keyboard = InlineKeyboardMarkup(
     inline_keyboard=[
         [
-            InlineKeyboardButton("4 тижні", callback_data="4weeks"),
-            InlineKeyboardButton("12 тижнів", callback_data="12weeks")
+            InlineKeyboardButton("За 4 тижні", callback_data="4_weeks"),
+            InlineKeyboardButton("Одразу за 12 тижнів", callback_data="12_weeks")
         ]
     ]
 )
@@ -14,20 +14,33 @@ weeks_keyboard = InlineKeyboardMarkup(
 
 internet_keyboard = InlineKeyboardMarkup(
     inline_keyboard=[
-        [
-            InlineKeyboardButton("до 7 ГБ", callback_data="internet_7"),
-            InlineKeyboardButton("від 7 до 30 ГБ", callback_data="internet_7_30"),
-            InlineKeyboardButton("від 30 до Безліміту", callback_data="internet_30")
-        ]
+        [InlineKeyboardButton("Майже не використовую", callback_data="0_07")],
+        [InlineKeyboardButton("Рідко", callback_data="07_30")],
+        [InlineKeyboardButton("Проводжу в інтернеті весь вільний час", callback_data="31_1000")]
     ]
 )
 
 calls_keyboard = InlineKeyboardMarkup(
     inline_keyboard=[
+        [InlineKeyboardButton("В основному використовую месенджери", callback_data="0_300")],
+        [InlineKeyboardButton("Телефоную часто", callback_data="301_1500")],
+        [InlineKeyboardButton("Цілими днями спілкуюсь з друзями", callback_data="1501_3000")]
+    ],
+)
+
+
+yes_no_keyboard = InlineKeyboardMarkup(
+    inline_keyboard=[
         [
-            InlineKeyboardButton("до 300 хв", callback_data="calls_300"),
-            InlineKeyboardButton("від 301 до 1500 хв", callback_data="calls_301"),
-            InlineKeyboardButton("від 1501 до Безліміту", callback_data="calls_1501")
+            InlineKeyboardButton("Так", callback_data="yes"),
+            InlineKeyboardButton("Ні", callback_data="no")
         ]
     ]
 )
+
+
+def create_price_keyboard(suitable_options):
+    list_of_buttons = []
+    for i in suitable_options:
+        list_of_buttons.append([InlineKeyboardButton(f"{i.price}", callback_data=f"{i.price}")])
+    return list_of_buttons
