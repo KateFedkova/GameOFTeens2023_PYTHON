@@ -2,13 +2,15 @@
 
 import sqlite3
 
+from tgbot.misc.constants import DATABASE
+
 
 class DbInteraction:
     """Simple db interation class using sqlite."""
 
-    def __init__(self):
+    def __init__(self, database):
         """Initialize connection and cursor."""
-        self.connection = sqlite3.connect("lifecell_db.db")
+        self.connection = sqlite3.connect(database)
         self.cur = self.connection.cursor()
 
     def create_user_table(self):
@@ -43,4 +45,4 @@ class DbInteraction:
         return username
 
 
-db_interaction = DbInteraction()
+db_interaction = DbInteraction(DATABASE)
