@@ -3,7 +3,7 @@
 import time
 from aiogram import types, Dispatcher
 from aiogram.dispatcher import FSMContext
-from aiogram.types import InlineKeyboardMarkup
+from aiogram.types import InlineKeyboardMarkup, WebAppInfo, InlineKeyboardButton
 from tgbot.misc import UserStates
 from tgbot.keyboards import weeks_keyboard, internet_keyboard, calls_keyboard,\
     yes_no_keyboard, create_price_keyboard
@@ -12,7 +12,14 @@ from tgbot.misc.constants import DEFAULT_BOT_TEXT, tariffs, RECOMMENDATION
 
 async def give_recommendation(call: types.CallbackQuery, tariff):
     tariff.name = tariff.name.replace('_', '-')
-    await call.message.answer(RECOMMENDATION.format(tariff.name.capitalize(), tariff.name))
+    link_btn = InlineKeyboardButton(
+        "Link",
+        web_app=WebAppInfo(
+            url=f"https://www.lifecell.ua/uk/mobilnij-zvyazok/taryfy/{tariff.name}/"
+        )
+    )
+    reply_link = InlineKeyboardMarkup(inline_keyboard=[[link_btn]])
+    await call.message.answer(RECOMMENDATION.format(tariff.name.capitalize()), reply_markup=reply_link)
     time.sleep(2)
     await call.message.answer_sticker(sticker="CAACAgIAAxkBAAETh25kjbjjzG-cT9mFsEon9q9wkbw0AwAC3QAD9wLID-pZL7ynakA8LwQ")
     time.sleep(2)
@@ -111,7 +118,14 @@ async def choose_price(call: types.CallbackQuery, state: FSMContext):
     for i in data['data']:
         if i.price == int(call.data):
             i.name = i.name.replace('_', '-')
-            await call.message.answer(RECOMMENDATION.format(i.name.capitalize(), i.name))
+            link_btn = InlineKeyboardButton(
+                "Переглянути деталі",
+                web_app=WebAppInfo(
+                    url=f"https://www.lifecell.ua/uk/mobilnij-zvyazok/taryfy/{i.name}/"
+                )
+            )
+            reply_link = InlineKeyboardMarkup(inline_keyboard=[[link_btn]])
+            await call.message.answer(RECOMMENDATION.format(i.name.capitalize()), reply_markup=reply_link)
             time.sleep(3)
             await call.message.answer("Чи підходить вам тариф?", reply_markup=yes_no_keyboard)
             await UserStates.suitable.set()
