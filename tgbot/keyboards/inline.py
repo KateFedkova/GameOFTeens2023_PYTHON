@@ -42,5 +42,5 @@ yes_no_keyboard = InlineKeyboardMarkup(
 def create_price_keyboard(suitable_options):
     list_of_buttons = []
     for i in suitable_options:
-        list_of_buttons.append([InlineKeyboardButton(f"{i.price}", callback_data=f"{i.price}")])
+        list_of_buttons.append([InlineKeyboardButton(f"{i.price} грн/місяць", callback_data=f"{i.price}")])
     return list_of_buttons

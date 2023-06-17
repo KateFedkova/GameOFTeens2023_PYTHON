@@ -24,8 +24,7 @@ RECOMMENDATION = """
 Зважаючи на ваші вподобання, пропонуємо вам тариф: 
 <b>{}</b>
 
-Всі деталі тарифу доступні <a href="https://www.lifecell.ua/uk/mobilnij-zvyazok/taryfy/{}/">за посиланням</a>
-
+Всі деталі тарифу доступні за посиланням ⬇ 
 """
 
 potuzhnyy = Tariff(name='potuzhnyy', weeks=4, internet=40, calls=float('inf'), price=100)
