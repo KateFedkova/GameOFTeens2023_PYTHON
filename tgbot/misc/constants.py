@@ -4,6 +4,8 @@ from tgbot.misc import Tariff
 
 SIGNUP_PAGE = "https://pavloshutz.github.io/signup-page/"
 
+DATABASE = "lifecell_db.db"
+
 BOT_INFO = """
 🖐 Привіт і вітаю тебе у <b>Lifecell Тариф</b> боті!
 Тут у тебе буде нагода обрати під себе саме той тариф від Lifecell
