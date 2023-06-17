@@ -8,7 +8,7 @@ from aiogram.types import ReplyKeyboardRemove
 
 from tgbot.services.interact_database import db_interaction
 from tgbot.keyboards.reply import signup_markup
-from tgbot.misc.constants import BOT_INFO
+from tgbot.misc.constants import BOT_INFO, DEFAULT_BOT_TEXT
 
 
 async def user_start(message: Message):
@@ -28,7 +28,13 @@ async def signup_user(message: Message):
     await message.answer("Ви були успішно зареєтровані у систему!", reply_markup=removed_keyboard)
 
 
+async def user_help(message: Message):
+    """Give user information about the bot."""
+    await message.answer(DEFAULT_BOT_TEXT)
+
+
 def register_user(dp: Dispatcher):
     """Register all handlers for interaction with user."""
     dp.register_message_handler(user_start, commands=["start"])
+    dp.register_message_handler(user_help, commands=["help"])
     dp.register_message_handler(signup_user, content_types={'web_app_data'})
