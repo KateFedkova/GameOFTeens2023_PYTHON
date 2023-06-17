@@ -15,6 +15,8 @@ from tgbot.handlers.echo import register_echo
 from tgbot.handlers.user import register_user
 from tgbot.middlewares.environment import EnvironmentMiddleware
 from tgbot.services.interact_database import db_interaction
+from tgbot.misc import set_default_commands
+
 
 logger = logging.getLogger(__name__)
 
@@ -54,6 +56,7 @@ async def main():
     register_all_middlewares(dp, config)
     register_all_filters(dp)
     register_all_handlers(dp)
+    await set_default_commands(dp)
 
     # start
     try:
