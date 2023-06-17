@@ -6,3 +6,4 @@ class UserStates(StatesGroup):
     internet = State()
     calls = State()
     price = State()
+    suitable = State()
