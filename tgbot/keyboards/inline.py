@@ -15,7 +15,7 @@ weeks_keyboard = InlineKeyboardMarkup(
 internet_keyboard = InlineKeyboardMarkup(
     inline_keyboard=[
         [InlineKeyboardButton("Майже не використовую", callback_data="0_07")],
-        [InlineKeyboardButton("Рідко", callback_data="07_30")],
+        [InlineKeyboardButton("Майже постійно", callback_data="07_30")],
         [InlineKeyboardButton("Проводжу в інтернеті весь вільний час", callback_data="31_1000")]
     ]
 )

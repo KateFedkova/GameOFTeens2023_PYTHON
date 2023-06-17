@@ -12,9 +12,11 @@ from tgbot.misc.constants import DEFAULT_BOT_TEXT, tariffs, RECOMMENDATION
 
 async def give_recommendation(call: types.CallbackQuery, tariff):
     tariff.name = tariff.name.replace('_', '-')
-    await call.message.answer(RECOMMENDATION.format(tariff.name, tariff.name))
+    await call.message.answer(RECOMMENDATION.format(tariff.name.capitalize(), tariff.name))
     time.sleep(2)
-    await call.message.answer("Чи підходить вам тариф?", reply_markup=yes_no_keyboard)
+    await call.message.answer_sticker(sticker="CAACAgIAAxkBAAETh25kjbjjzG-cT9mFsEon9q9wkbw0AwAC3QAD9wLID-pZL7ynakA8LwQ")
+    time.sleep(2)
+    await call.message.answer("Чи подобається вам тариф?", reply_markup=yes_no_keyboard)
     await UserStates.suitable.set()
 
 
@@ -41,7 +43,7 @@ def choosing_logic(want_internet, want_calls, i):
 
 async def start_choosing(message: types.Message, state: FSMContext):
     await UserStates.weeks.set()
-    await message.answer("За скільки тижнів вам краще платити?", reply_markup=weeks_keyboard)
+    await message.answer("💳 За скільки тижнів вам зручно платити?", reply_markup=weeks_keyboard)
 
 
 async def choose_weeks_quantity(call: types.CallbackQuery, state: FSMContext):
@@ -57,20 +59,21 @@ async def choose_weeks_quantity(call: types.CallbackQuery, state: FSMContext):
     else:
         await UserStates.internet.set()
         await call.message.answer("Як багато часу ви викристовуєте інтернет?", reply_markup=internet_keyboard)
+        await call.message.answer_sticker(sticker="CAACAgIAAxkBAAETh3lkjbqV4aEOeCJU3CeHMB-W0cl0OgAC3AAD9wLID1DYvAZ7vfB8LwQ")
 
 
 async def end_of_choosing(call: types.CallbackQuery, state: FSMContext):
     if call.data == 'yes':
-        await call.message.answer("Дякуємо, що обрали Lifecell")
+        await call.message.answer("Дякуємо, що обрали Lifecell 🤩")
     elif call.data == 'no':
-        await call.message.answer("Нам шкода, що ми не змогли знайти вам тариф. Будь ласка, спробуйте ще раз")
+        await call.message.answer("😭 Нам шкода, що ми не змогли знайти вам тариф.\nБудь ласка, спробуйте ще раз /choose")
     await state.finish()
 
 
 async def choose_internet_quantity(call: types.CallbackQuery, state: FSMContext):
     await state.update_data({'internet': call.data})
     await UserStates.calls.set()
-    await call.message.answer("Чи телефонуєте ви людям?", reply_markup=calls_keyboard)
+    await call.message.answer("Як часто ви телефонуєте?", reply_markup=calls_keyboard)
 
 
 def choosing_bests_tariffs(data):
@@ -95,6 +98,8 @@ async def choose_calls_quantity(call: types.CallbackQuery, state: FSMContext):
         await state.update_data({'data': suitable_options})
         await UserStates.price.set()
         list_of_buttons = create_price_keyboard(suitable_options)
+        await call.message.answer_sticker(sticker='CAACAgIAAxkBAAETh4Vkjbtg9JpUYhXXFaZ6dwn7RVq38AAC6QAD9wLIDxlbsUWIj86LLwQ')
+        time.sleep(1)
         await call.message.answer("Оберіть ціну", reply_markup=InlineKeyboardMarkup(inline_keyboard=list_of_buttons))
     else:
         await state.finish()
@@ -106,7 +111,7 @@ async def choose_price(call: types.CallbackQuery, state: FSMContext):
     for i in data['data']:
         if i.price == int(call.data):
             i.name = i.name.replace('_', '-')
-            await call.message.answer(RECOMMENDATION.format(i.name, i.name))
+            await call.message.answer(RECOMMENDATION.format(i.name.capitalize(), i.name))
             time.sleep(3)
             await call.message.answer("Чи підходить вам тариф?", reply_markup=yes_no_keyboard)
             await UserStates.suitable.set()

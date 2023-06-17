@@ -48,5 +48,5 @@ smart_family_l = Tariff(name='smart_family_l', weeks=4, internet=50, calls=1500,
 
 tariffs = [gadget_bezpeka, potuzhnyy, int_bezmezh, dzvinkiy, vilniy_life_reg, vilniy_life, smart_life, prosto_life,
            platinum_life, shkilniy, gadget_smart21, gadget_tab21, gadget_rout21,
-           gadget_rout21, smart_family_s, smart_family_m, smart_family_l]
+           smart_family_s, smart_family_m, smart_family_l]
 
