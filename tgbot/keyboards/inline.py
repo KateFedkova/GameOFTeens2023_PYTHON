@@ -1,3 +1,5 @@
+"""All inline keyboards for bot."""
+
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
 weeks_keyboard = InlineKeyboardMarkup(

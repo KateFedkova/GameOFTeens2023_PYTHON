@@ -1,3 +1,5 @@
+"""All reply keyboards for bot."""
+
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, WebAppInfo
 
 from tgbot.misc.constants import SIGNUP_PAGE

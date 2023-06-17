@@ -1,3 +1,5 @@
+"""Module for initializing and starting bot."""
+
 import asyncio
 import logging
 
