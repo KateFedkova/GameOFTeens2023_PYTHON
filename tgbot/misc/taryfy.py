@@ -7,6 +7,7 @@ from typing import Optional, Union
 @dataclass
 class Tariff:
 
+    name: str
     weeks: int
     internet: Optional[Union[int, float]]
     calls: Optional[Union[int, float]]
